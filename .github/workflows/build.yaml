@@ -1,0 +1,57 @@
+name: Build Expo App
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Android and iOS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: npm
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+          distribution: temurin
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Android APK
+        run: eas build --platform android --profile preview --non-interactive --local --output ${{ github.workspace }}/app-release.apk
+
+     
+      - name: List workspace files
+        run: ls -la ${{ github.workspace }}
+        if: failure()
+
+      - name: Upload Android APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-apk
+          path: ${{ github.workspace }}/app-release.apk
+          retention-days: 7
