@@ -12,10 +12,12 @@
       "ios": {
         "simulator": false
       },
-      "credentialsSource": "remote"
+      "credentialsSource": "remote",
+      "channel": "preview"
     },
     "production": {
-      "distribution": "store"
+      "distribution": "store",
+      "channel": "production"
     }
   },
   "submit": {

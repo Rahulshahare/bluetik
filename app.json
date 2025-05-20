@@ -32,6 +32,12 @@
         "projectId": "4c9bb08b-de51-44ad-8188-64a0d34ec1e0"
       }
     },
-    "owner": "rahulshahare91"
+    "owner": "rahulshahare91",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/4c9bb08b-de51-44ad-8188-64a0d34ec1e0"
+    }
   }
 }
