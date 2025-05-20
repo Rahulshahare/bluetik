@@ -2,7 +2,7 @@ name: preview update
 on:
     push:
         branches:
-            - master
+            - main
 
 jobs:
   update:
